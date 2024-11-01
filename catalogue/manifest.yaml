@@ -14,7 +14,7 @@ metadata:
   labels: # These labels are deployment labels
     app: catalogue
     project: roboshop
-    tier: db
+    tier: app
 spec:
   replicas: 1
   selector:
