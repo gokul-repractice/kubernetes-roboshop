@@ -35,7 +35,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-          name: catalogue
+            name: catalogue
 ---
 apiVersion: v1  # if we did not specify anything, type will be clusterIP.
 kind: Service
