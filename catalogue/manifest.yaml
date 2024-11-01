@@ -16,7 +16,7 @@ metadata:
     project: roboshop
     tier: db
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:  # These labels are used to find the pods
       app: catalogue
@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: catalogue
-        image: gokul0307/catalogue:V1
+        image: gokul0307/catalogue:v1
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
