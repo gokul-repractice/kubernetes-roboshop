@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  namespace: roboshop
+  labels: # These labels are deployment labels
+    app: catalogue
+    project: roboshop
+    tier: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:  # These labels are used to find the pods
+      app: web
+      project: roboshop
+      tier: web
+  template:
+    metadata:
+      labels: # These labels are pod labels
+        app: web
+        project: roboshop
+        tier: web
+    spec:
+      containers:
+      - name: web
+        image: gokul0307/web:v1
+        imagePullPolicy: Always
+        # envFrom:
+        # - configMapRef:
+        #     name: catalogue
+---
+apiVersion: v1  # if we did not specify anything, type will be clusterIP.
+kind: Service
+metadata:
+  name: web
+  namespace: roboshop
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+    project: roboshop
+    tier: web
+  ports:
+    - protocol: TCP
+      port: 80 # service port
+      targetPort: 80 #container port
