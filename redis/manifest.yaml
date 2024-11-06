@@ -1,45 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalogue
+  name: redis
   namespace: roboshop
-  labels: # These labels are deployment labels
-    app: catalogue
+  labels: # these labels are deployment labels
+    app: redis
     project: roboshop
-    tier: app
+    tier: db
 spec:
   replicas: 1
   selector:
-    matchLabels:  # These labels are used to find the pods
-      app: catalogue
+    matchLabels: # these labels are used to find the pods
+      app: redis
       project: roboshop
-      tier: app
+      tier: db
   template:
     metadata:
-      labels: # These labels are pod labels
-        app: catalogue
+      labels: # these labels are pod labels
+        app: redis
         project: roboshop
-        tier: app
+        tier: db
     spec:
       containers:
-      - name: catalogue
-        image: gokul0307/catalogue:v1
+      - name: redis
+        image: redis
         imagePullPolicy: Always
-        envFrom:
-        - configMapRef:
-            name: catalogue
 ---
-apiVersion: v1  # if we did not specify anything, type will be clusterIP.
+apiVersion: v1
 kind: Service
 metadata:
-  name: catalogue
+  name: redis
   namespace: roboshop
 spec:
   selector:
-    app: catalogue
+    app: redis
     project: roboshop
-    tier: app
+    tier: db
   ports:
-    - protocol: TCP
-      port: 8080 # service port
-      targetPort: 8080 #container port
+  - protocol: TCP
+    port: 6379 #service-port
+    targetPort: 6379 #container-port
