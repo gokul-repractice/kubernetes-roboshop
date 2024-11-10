@@ -4,8 +4,8 @@ metadata:
   name: web
   namespace: roboshop
 data:
-  nginx.conf: |    # This is Key , from below is data.
-    user www-data;                  
+  nginx.conf: |
+    user www-data;
     worker_processes 4;
     pid /var/run/nginx.pid;
 
@@ -83,8 +83,9 @@ data:
         location = /50x.html {
             root   /usr/share/nginx/html;
         }
+
         location /api/catalogue/ {
-         proxy_pass http://catalogue:8080/;
+          proxy_pass http://catalogue:8080/;
         }
 
         location /api/user/ {
@@ -103,9 +104,10 @@ data:
           proxy_pass http://payment:8080/;
         }
 
-    }
 
     }
+
+    } 
 ---
 apiVersion: apps/v1
 kind: Deployment
