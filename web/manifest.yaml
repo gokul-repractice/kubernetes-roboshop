@@ -108,6 +108,7 @@ data:
     }
 
     } 
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -134,22 +135,22 @@ spec:
     spec:
       containers:
       - name: web
-        image: gokul0307/web:v1
+        image: joindevops/web:v1
         imagePullPolicy: Always
-        volumeMounts:   #Hre we are mounting the volume
+        volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
       volumes:
-      - name: nginx-conf  # Here we created file as part of volume in container level
+      - name: nginx-conf
         configMap:
           name: web
           items:
             - key: nginx.conf
               path: nginx.conf
 ---
-apiVersion: v1  # if we did not specify anything, type will be clusterIP.
+apiVersion: v1
 kind: Service
 metadata:
   name: web
@@ -161,6 +162,6 @@ spec:
     project: roboshop
     tier: web
   ports:
-    - protocol: TCP
-      port: 80 # service port
-      targetPort: 80 #container port
+  - protocol: TCP
+    port: 80 #service-port
+    targetPort: 80 #container-port
