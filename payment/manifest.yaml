@@ -13,20 +13,20 @@ kind: Deployment
 metadata:
   name: payment
   namespace: roboshop
-  labels: # These labels are deployment labels
+  labels: # these labels are deployment labels
     app: payment
     project: roboshop
     tier: app
 spec:
   replicas: 1
   selector:
-    matchLabels:  # These labels are used to find the pods
+    matchLabels: # these labels are used to find the pods
       app: payment
       project: roboshop
       tier: app
   template:
     metadata:
-      labels: # These labels are pod labels
+      labels: # these labels are pod labels
         app: payment
         project: roboshop
         tier: app
@@ -39,7 +39,7 @@ spec:
         - secretRef:
             name: payment
 ---
-apiVersion: v1  # if we did not specify anything, type will be clusterIP.
+apiVersion: v1
 kind: Service
 metadata:
   name: payment
@@ -50,6 +50,6 @@ spec:
     project: roboshop
     tier: app
   ports:
-    - protocol: TCP
-      port: 8080 # service port
-      targetPort: 8080 #container port
+  - protocol: TCP
+    port: 8080 #service-port
+    targetPort: 8080 #container-port
